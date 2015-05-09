@@ -6,19 +6,19 @@ import java.awt.*;
  */
 public class QuestionPanel extends JPanel
 {
-
-
+    private ButtonGroup answersBlock;
     private JLabel lblQuestionText;
     private JRadioButton [] answers = new JRadioButton[TriviaGame.maxAnswers];
 
     public QuestionPanel()
     {
         super();
-        setLayout(new GridLayout(5, 1));
+        setLayout(new GridLayout( TriviaGame.maxAnswers+1 , 1));
         lblQuestionText = new JLabel();
 
         this.add(lblQuestionText);
-        ButtonGroup answersBlock = new ButtonGroup();
+
+        answersBlock = new ButtonGroup();
 
         for (int i=0; i<answers.length; i++)
         {
@@ -33,12 +33,15 @@ public class QuestionPanel extends JPanel
     public void updateQuestion(Question source) {
         lblQuestionText.setText(source.toString());
         updateAnswers(source);
-
+        answersBlock.clearSelection();
     }
 
-    public JRadioButton[] getAnswers()
+    public int getSelectedIndex()
     {
-        return answers;
+        for (int i=0; i<answers.length; i++)
+            if (answers[i].isSelected())
+                return i;
+        return -1;
     }
 
     private void updateAnswers(Question source)
@@ -48,4 +51,6 @@ public class QuestionPanel extends JPanel
             answers[i].setText( source.getAnswer(i) );
         }
     }
+
+
 }

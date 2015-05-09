@@ -88,7 +88,7 @@ public class QuestionCollection
         {
             Random random = new Random();
 
-            int tempIndex = random.nextInt( getNumRemainingQuestions() - 1);
+            int tempIndex = random.nextInt( getNumRemainingQuestions());
 
             Question tempQuestion = activeQuestions.get(tempIndex);
             usedQuestions.add(tempQuestion);
