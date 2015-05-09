@@ -7,9 +7,11 @@ import java.awt.*;
 public class TriviaGui extends JFrame
 {
     private JLabel lblTime;
+    private JLabel lblScore;
+    private JLabel lblRemQuestions;
     private QuestionPanel pnlQuestions;
     private JPanel pnlButtons;
-    private JPanel pnlTime;
+    private JPanel pnlStatus;
 
     public TriviaGui()
     {
@@ -24,29 +26,44 @@ public class TriviaGui extends JFrame
 
         pnlQuestions = new QuestionPanel();
         pnlButtons = new JPanel(new GridLayout(1,2));
-        pnlTime = new JPanel();
+        pnlStatus = new JPanel(new GridLayout(2,2));
 
         JButton btnNext = new JButton("Next");
         JButton btnExit = new JButton("Exit");
 
         pnlButtons.add(btnNext);
         pnlButtons.add(btnExit);
+        pnlButtons.setPreferredSize(new Dimension(400, 50));
 
         lblTime = new JLabel("Remaining Time:");
-        pnlTime.add(lblTime);
+        lblScore = new JLabel("Score:");
+        lblRemQuestions = new JLabel("Remaining Questions:");
+        pnlStatus.add(lblTime);
+        pnlStatus.add(lblScore);
+        pnlStatus.add(lblRemQuestions);
 
 
         add(pnlQuestions);
         add(pnlButtons);
-        add(pnlTime);
+        add(pnlStatus);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setSize(new Dimension(400, 400));
+        setSize(new Dimension(400, 300));
         setResizable(false);
     }
 
     public void displayQuesion (Question newQuestion)
     {
         pnlQuestions.updateQuestion(newQuestion);
+    }
+
+    public void updateScore (int score)
+    {
+        lblScore.setText("Score: " + score);
+    }
+
+    public void updateRemQuestions (int num)
+    {
+        lblRemQuestions.setText("Remaining Questions: " + num);
     }
 }
