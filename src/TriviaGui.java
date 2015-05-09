@@ -12,6 +12,7 @@ public class TriviaGui extends JFrame
     private QuestionPanel pnlQuestions;
     private JPanel pnlButtons;
     private JPanel pnlStatus;
+    public JProgressBar progressBar;
     public JButton btnNext;
     public JButton btnExit;
 
@@ -24,11 +25,14 @@ public class TriviaGui extends JFrame
 
     private void initGui()
     {
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(4, 1));
 
         pnlQuestions = new QuestionPanel();
         pnlButtons = new JPanel(new GridLayout(1,2));
-        pnlStatus = new JPanel(new GridLayout(2,2));
+        pnlStatus = new JPanel(new GridLayout(1,2));
+        progressBar = new JProgressBar(SwingConstants.HORIZONTAL,1,15);
+        progressBar.setString("Time");
+        progressBar.setStringPainted(true);
 
 
         btnExit = new JButton("Exit");
@@ -36,12 +40,10 @@ public class TriviaGui extends JFrame
 
         pnlButtons.add(btnNext);
         pnlButtons.add(btnExit);
-        pnlButtons.setPreferredSize(new Dimension(400, 50));
+        pnlButtons.setSize(new Dimension(400, 50));
 
-        lblTime = new JLabel(" Remaining Time:");
-        lblScore = new JLabel("Score:");
+        lblScore = new JLabel(" Score:");
         lblRemQuestions = new JLabel(" Remaining Questions:");
-        pnlStatus.add(lblTime);
         pnlStatus.add(lblScore);
         pnlStatus.add(lblRemQuestions);
 
@@ -49,9 +51,10 @@ public class TriviaGui extends JFrame
         add(pnlQuestions);
         add(pnlButtons);
         add(pnlStatus);
+        add(progressBar);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setSize(new Dimension(400, 300));
+        setSize(new Dimension(400, 325));
         setResizable(false);
     }
 
@@ -79,6 +82,7 @@ public class TriviaGui extends JFrame
 
     public void updateRemTime(int remainingTime)
     {
-        lblTime.setText(" Remaining Time: "+remainingTime + "sec.");
+        progressBar.setValue(remainingTime);
+        progressBar.setString((remainingTime)+" sec.");
     }
 }

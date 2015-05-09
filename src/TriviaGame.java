@@ -61,7 +61,16 @@ public class TriviaGame
         } else //game is over
         {
             tickerTimer.stop();
-            JOptionPane.showMessageDialog(currentGui,"Game is over! \n Your score is "+ score);
+            int reply=JOptionPane.showConfirmDialog(currentGui,"Your score is "+ score+"\n Would you like to play again?","Game is over!",JOptionPane.YES_NO_OPTION);
+            if (reply==JOptionPane.NO_OPTION)
+            {
+                System.exit(0);
+            }
+            else
+            {
+                restart();
+            }
+
         }
 
     }
@@ -99,14 +108,15 @@ public class TriviaGame
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            updateRemainingTime(-1);
             if (e.getSource()==gameTimer)
             {
                 gameTimer.stop();
+                tickerTimer.stop();
                 JOptionPane.showMessageDialog(currentGui,"Time is up!");
                 handleQuestionTimer();
             } else
             {
-                updateRemainingTime(-1);
                 tickerTimer.start();
             }
 
@@ -124,8 +134,9 @@ public class TriviaGame
     private void restart()
     {
         score=0;
+        currentGui.updateScore(score);
         questions.switchLists();
-        handleQuestionTimer();
+        replaceQuestion();
 
     }
 
